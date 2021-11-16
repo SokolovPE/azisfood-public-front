@@ -2,7 +2,13 @@
   <v-app>
     <navbar />
     <v-main>
-      <router-view/>
+      <v-container>
+<!--        <v-row style="height: 200px">-->
+<!--        </v-row>-->
+        <v-row>
+          <router-view/>
+        </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>

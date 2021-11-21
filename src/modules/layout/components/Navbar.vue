@@ -1,9 +1,5 @@
 <template>
-  <v-app-bar
-    app
-    color="indigo"
-    dark
-  >
+  <v-app-bar app color="indigo" dark>
     <div class="d-flex align-center">
       <v-img
         alt="Vuetify Logo"
@@ -17,16 +13,10 @@
 
     <v-spacer></v-spacer>
     <v-btn class="nav-btn" text to="/" color="white">Menu</v-btn>
-    <v-btn class="nav-btn" text to="/coupons" exact color="white"
-    >Coupons</v-btn
-    >
+    <v-btn class="nav-btn" text to="/coupons" exact color="white">Coupons </v-btn>
     <v-btn class="nav-btn" text to="/actions" color="white">Actions</v-btn>
-    <v-btn class="nav-btn" text to="/royals" color="white"
-    >Azis Royals</v-btn
-    >
-    <v-btn class="nav-btn" text to="/restaurants" color="white"
-    >We on map</v-btn
-    >
+    <v-btn class="nav-btn" text to="/royals" color="white">Azis Royals </v-btn>
+    <v-btn class="nav-btn" text to="/restaurants" color="white">We on map </v-btn>
     <v-btn class="nav-btn" text to="/about" color="white">About</v-btn>
     <v-spacer></v-spacer>
     <v-btn class="func-btn" color="white" text>
@@ -42,7 +32,6 @@
     >
       <v-btn id="cart-btn" class="func-btn" color="white">
         <v-icon color="red darken-1">mdi-cart</v-icon>
-
       </v-btn>
     </v-badge>
     <!-- <router-link to="/profile">
@@ -79,7 +68,10 @@ export default Vue.extend({
   computed: {
     getCartStatus() {
       const value = 0;
-      return { visible: value > 0, count: value };
+      return {
+        visible: value > 0,
+        count: value,
+      };
     },
   },
 });
@@ -89,9 +81,11 @@ export default Vue.extend({
 #cart-btn {
   width: 90px;
 }
+
 .func-btn + .func-btn {
   margin-left: 10px !important;
 }
+
 .nav-btn {
   height: 100% !important;
 }

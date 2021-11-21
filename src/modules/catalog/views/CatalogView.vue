@@ -1,41 +1,31 @@
 <template>
   <div class="catalog-view">
-    <span>Hello world!</span>
-    <v-btn @click.stop="setNext">Switch to first</v-btn>
-    <div>
-      Empty
-    </div>
+    <category-list @changed="categoryChanged" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import CatalogService from '@/modules/catalog/services/Catalog.service';
-import Category from '@/modules/catalog/models/Category';
 import Product from '@/modules/catalog/models/Product';
+import Category from '@/modules/catalog/models/Category';
+
+import CategoryList from '@/modules/catalog/components/CategoryList.vue';
 
 export default Vue.extend({
   name: 'Catalog',
+  components: {
+    CategoryList,
+  },
   data() {
     return {
-      categories: [] as Category[],
-      currentCategory: new Category(),
       products: [] as Product[],
     };
   },
-  watch: {
-    async currentCategory(newValue) {
-      this.products = await CatalogService.getProducts(newValue.id);
-    },
-  },
   methods: {
-    setNext() {
-      [, this.currentCategory] = this.categories;
+    async categoryChanged(category: Category) {
+      this.products = await CatalogService.getProducts(category.id);
     },
-  },
-  async mounted() {
-    this.categories = await CatalogService.getCategories();
-    [this.currentCategory] = this.categories;
   },
 });
 </script>

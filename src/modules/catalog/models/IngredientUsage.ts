@@ -5,11 +5,7 @@ export default class IngredientUsage {
 
   toggleable: boolean;
 
-  constructor(
-    ingredientId = '',
-    amount = 0,
-    toggleable = false,
-  ) {
+  constructor(ingredientId = '', amount = 0, toggleable = false) {
     this.ingredientId = ingredientId;
     this.amount = amount;
     this.toggleable = toggleable;

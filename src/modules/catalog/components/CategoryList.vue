@@ -3,7 +3,7 @@
     <v-row>
       <v-col
         :cols="overflow ? 9 : 12"
-        :sm="overflow? 11 : 12"
+        :sm="overflow ? 11 : 12"
         ref="categories"
         class="categories justify-center"
         :class="getState()"

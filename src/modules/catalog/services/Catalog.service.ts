@@ -2,14 +2,15 @@ import Category from '@/modules/catalog/models/Category';
 import Product from '@/modules/catalog/models/Product';
 
 interface ICatalogService {
-  getCategories() : Promise<Category[]>;
-  getProducts(categoryId: string) : Promise<Product[]>;
+  getCategories(): Promise<Category[]>;
+
+  getProducts(categoryId: string): Promise<Product[]>;
 }
 
 class CatalogService implements ICatalogService {
   private API_URL = 'https://localhost:5001';
 
-  public getCategories() : Promise<Category[]> {
+  public getCategories(): Promise<Category[]> {
     return fetch(`${this.API_URL}/api/v1/Category`).then((response) => {
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -18,7 +19,7 @@ class CatalogService implements ICatalogService {
     });
   }
 
-  public getProducts(categoryId = '') : Promise<Product[]> {
+  public getProducts(categoryId = ''): Promise<Product[]> {
     let url = `${this.API_URL}/api/v1/Product`;
     if (categoryId !== undefined && categoryId !== '') {
       url += `/Category/${categoryId}`;

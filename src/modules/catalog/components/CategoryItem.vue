@@ -2,7 +2,7 @@
   <div
     class="category d-flex align-center justify-center mx-4 my-1"
     :class="[{ active: selected }]"
-    :style="{ height: `${height}px`}"
+    :style="{ height: `${height}px` }"
   >
     {{ item.title }}
   </div>

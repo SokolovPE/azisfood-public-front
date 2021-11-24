@@ -3,10 +3,10 @@
     <navbar />
     <v-main>
       <v-container>
-<!--        <v-row style="height: 200px">-->
-<!--        </v-row>-->
+        <!--        <v-row style="height: 200px">-->
+        <!--        </v-row>-->
         <v-row>
-          <router-view/>
+          <router-view />
         </v-row>
       </v-container>
     </v-main>

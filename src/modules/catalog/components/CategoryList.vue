@@ -8,7 +8,7 @@
         class="categories justify-center"
         :class="getState()"
       >
-        <v-row>
+        <v-row :class="[{'justify-md-center': !overflow}]">
           <category
             v-for="category in filtered"
             :key="category.id"
@@ -55,7 +55,7 @@ export default Vue.extend({
   computed: {
     filtered(): Category[] {
       // .filter((cat) => cat.title !== 'del');
-      return this.categories;
+      return this.categories.filter((cat) => cat.title !== 'del');
     },
   },
   methods: {

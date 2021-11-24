@@ -1,6 +1,6 @@
 <template>
   <div
-    class="category d-flex align-center mx-4 my-1"
+    class="category d-flex align-center justify-center mx-4 my-1"
     :class="[{ active: selected }]"
     :style="{ height: `${height}px`}"
   >
@@ -40,9 +40,9 @@ export default Vue.extend({
     color: #e53935;
     cursor: pointer;
   }
-}
 
-.active {
-  border-bottom: #e53935 solid 2px;
+  &.active {
+    border-bottom: #e53935 solid 2px;
+  }
 }
 </style>

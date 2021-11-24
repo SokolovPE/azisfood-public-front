@@ -1,8 +1,14 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col :cols="overflow ? 11 : 12" ref="categories" :class="getState()">
-        <v-row class="categories justify-center">
+      <v-col
+        :cols="overflow ? 9 : 12"
+        :sm="overflow? 11 : 12"
+        ref="categories"
+        class="categories justify-center"
+        :class="getState()"
+      >
+        <v-row>
           <category
             v-for="category in filtered"
             :key="category.id"
@@ -13,7 +19,12 @@
         </v-row>
       </v-col>
       <v-col v-if="overflow">
-        <v-row @click.stop="toggle">EXPAND</v-row>
+        <v-row class="categories justify-center" @click.stop="toggle">
+          <div class="categories-expander d-flex align-center justify-start my-1">
+            <v-icon :class="[{ 'chevron--expanded': expanded }]">mdi-chevron-down</v-icon>
+            {{ expanded ? 'less' : 'more' }}
+          </div>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -44,7 +55,7 @@ export default Vue.extend({
   computed: {
     filtered(): Category[] {
       // .filter((cat) => cat.title !== 'del');
-      return this.categories.filter((cat) => cat.title !== 'del');
+      return this.categories;
     },
   },
   methods: {
@@ -72,8 +83,6 @@ export default Vue.extend({
 
     this.$nextTick(() => {
       const container = this.$refs.categories as HTMLElement;
-      console.log(container.offsetHeight);
-      console.log(this.itemHeight + 10);
       this.overflow = container.offsetHeight / (this.itemHeight + 10) > 1;
     });
   },
@@ -81,18 +90,35 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.categories--collapsed {
-  height: 70px;
-  overflow: hidden;
-  .categories {
-    justify-content: start !important;
-  }
-}
+.categories {
+  justify-content: start !important;
 
-.categories--expanded {
-  overflow: unset;
-  .categories {
-    justify-content: start !important;
+  &.categories--collapsed {
+    height: 70px;
+    overflow: hidden;
+  }
+
+  &.categories--expanded {
+    overflow: unset;
+  }
+
+  .categories-expander {
+    font-size: 18px;
+    font-weight: 300;
+    height: 50px;
+
+    &:hover {
+      color: #e53935;
+      cursor: pointer;
+    }
+
+    i {
+      color: inherit;
+    }
+
+    .chevron--expanded {
+      transform: rotate(-180deg);
+    }
   }
 }
 </style>

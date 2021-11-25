@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mb-4" fluid>
+  <v-container class="mb-0 category-container" fluid>
     <v-row>
       <v-col
         :cols="overflow ? 9 : 12"

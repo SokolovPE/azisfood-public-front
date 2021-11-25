@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d-flex fill-height" fluid>
+  <v-container class="d-flex fill-height pt-0" fluid>
     <template v-if="products.length > 0">
       <product v-for="product in products" :key="product.id" :item="product" />
     </template>

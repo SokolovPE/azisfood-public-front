@@ -1,30 +1,31 @@
 <template>
   <div class="catalog-view">
     <category-list @changed="categoryChanged" />
+    <product-list :category-id="selectedCategory.id" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import CatalogService from '@/modules/catalog/services/Catalog.service';
-import Product from '@/modules/catalog/models/Product';
 import Category from '@/modules/catalog/models/Category';
 
 import CategoryList from '@/modules/catalog/components/CategoryList.vue';
+import ProductList from '@/modules/catalog/components/ProductList.vue';
 
 export default Vue.extend({
   name: 'Catalog',
   components: {
     CategoryList,
+    ProductList,
   },
   data() {
     return {
-      products: [] as Product[],
+      selectedCategory: {} as Category,
     };
   },
   methods: {
-    async categoryChanged(category: Category) {
-      this.products = await CatalogService.getProducts(category.id);
+    categoryChanged(category: Category) {
+      this.selectedCategory = category;
     },
   },
 });

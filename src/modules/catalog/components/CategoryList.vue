@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container class="mb-4" fluid>
     <v-row>
       <v-col
         :cols="overflow ? 9 : 12"
@@ -8,13 +8,14 @@
         class="categories justify-center"
         :class="getState()"
       >
-        <v-row :class="[{'justify-md-center': !overflow}]">
+        <v-row :class="[{ 'justify-md-center': !overflow }]">
           <category
-            v-for="category in filtered"
+            v-for="category in categories"
             :key="category.id"
             :item="category"
             :selected="category.id === selectedCategory.id"
             :height="itemHeight"
+            @click="clickTest(category)"
           />
         </v-row>
       </v-col>
@@ -52,13 +53,10 @@ export default Vue.extend({
       expanded: false,
     };
   },
-  computed: {
-    filtered(): Category[] {
-      // .filter((cat) => cat.title !== 'del');
-      return this.categories.filter((cat) => cat.title !== 'del');
-    },
-  },
   methods: {
+    clickTest(category: Category) {
+      this.selectedCategory = category;
+    },
     setNext() {
       [, this.selectedCategory] = this.categories;
     },
@@ -73,7 +71,7 @@ export default Vue.extend({
     },
   },
   watch: {
-    async currentCategory(newValue) {
+    async selectedCategory(newValue) {
       this.$emit('changed', newValue);
     },
   },

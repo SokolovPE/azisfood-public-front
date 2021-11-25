@@ -30,7 +30,7 @@
       overlap
       style="margin-left: 10px"
     >
-      <v-btn id="cart-btn" class="func-btn" color="white">
+      <v-btn id="cart-btn" class="func-btn" color="white" rounded>
         <v-icon color="red darken-1">mdi-cart</v-icon>
       </v-btn>
     </v-badge>

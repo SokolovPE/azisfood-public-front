@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <navbar />
-    <v-main>
+    <v-main class="main">
       <v-container>
         <!--        <v-row style="height: 200px">-->
         <!--        </v-row>-->
@@ -28,3 +28,12 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+.main {
+  background-color: #eeeeee;
+
+  /* background-color: #fefefe; */
+  /* background-color: #f5f5f5;*/
+}
+</style>

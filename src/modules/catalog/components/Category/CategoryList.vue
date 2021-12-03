@@ -59,7 +59,9 @@ export default Vue.extend({
     },
   },
   async mounted() {
-    this.categories = await CatalogService.getCategories();
+    this.categories = (await CatalogService.getCategories()).sort((a: Category, b: Category) =>
+      // eslint-disable-next-line implicit-arrow-linebreak
+      (a.order > b.order ? 1 : -1));
   },
 });
 </script>

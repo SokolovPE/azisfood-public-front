@@ -5,9 +5,12 @@ export default class Category {
 
   subCategories: string[];
 
-  constructor(id = '', title = '', subCategories = []) {
+  order: number;
+
+  constructor(id = '', title = '', subCategories = [], order = 0) {
     this.id = id;
     this.title = title;
     this.subCategories = subCategories;
+    this.order = order;
   }
 }

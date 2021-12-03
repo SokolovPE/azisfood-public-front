@@ -11,13 +11,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Product from '@/modules/catalog/models/Product';
+import Category from '@/modules/catalog/models/Category';
 
 export default Vue.extend({
   name: 'CategoryItem',
   props: {
     item: {
-      type: Object as () => Product,
+      type: Object as () => Category,
       required: true,
     },
     selected: {

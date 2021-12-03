@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="indigo" dark>
+  <v-app-bar app height="64" color="indigo" dark>
     <div class="d-flex align-center">
       <v-img
         alt="Vuetify Logo"
@@ -12,7 +12,7 @@
     </div>
 
     <v-spacer></v-spacer>
-    <template v-if="!isMobile">
+      <template v-if="$vuetify.breakpoint.smAndUp">
       <v-btn class="nav-btn" text to="/menu" color="white">Menu</v-btn>
       <v-btn class="nav-btn" text to="/offers" color="white">Offers</v-btn>
       <v-btn class="nav-btn" text to="/royals" color="white">Azis Royals</v-btn>
@@ -20,10 +20,10 @@
       <v-btn class="nav-btn" text to="/about" color="white">About</v-btn>
     </template>
     <v-spacer></v-spacer>
-    <v-btn class="func-btn" color="white" text>
-      Login
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
+<!--    <v-btn class="func-btn" color="white" text>-->
+<!--      Login-->
+<!--      <v-icon>mdi-account</v-icon>-->
+<!--    </v-btn>-->
     <v-badge
       :value="getCartStatus.visible"
       :content="getCartStatus.count"

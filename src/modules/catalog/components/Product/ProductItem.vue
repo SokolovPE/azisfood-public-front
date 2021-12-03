@@ -1,6 +1,6 @@
 <template>
-  <v-card class="mx-2">
-    <v-img :src="fullUrl()" height="250" width="250">
+  <v-card class="mx-2 my-2"  :class="[{ 'w-100': this.$vuetify.breakpoint.xsOnly }]">
+    <v-img :src="fullUrl()" :height="calcSize()" :width="calcSize()">
       <template v-slot:placeholder>
         <v-sheet class="fill-height" color="grey lighten-4">
           <v-skeleton-loader class="fill-height" type="image" />
@@ -41,8 +41,15 @@ export default Vue.extend({
       const partUrl = this.item.imageUrl || '/public/goods/placeholder.png';
       return HelperService.makeUrl(partUrl);
     },
+    calcSize(): number {
+      return this.$vuetify.breakpoint.mdAndUp ? 250 : 150;
+    },
   },
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.w-100 {
+  width: 100%;
+}
+</style>

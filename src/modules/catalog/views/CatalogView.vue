@@ -1,16 +1,17 @@
 <template>
-  <div class="catalog-view">
+  <v-container class="catalog-view pa-0">
     <category-list @changed="categoryChanged" />
-    <product-list :category-id="selectedCategory.id" />
-  </div>
+    <product-list class="overflow-y-auto" :category-id="selectedCategory.id" />
+  </v-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+
 import Category from '@/modules/catalog/models/Category';
 
-import CategoryList from '@/modules/catalog/components/CategoryList.vue';
-import ProductList from '@/modules/catalog/components/ProductList.vue';
+import CategoryList from '@/modules/catalog/components/Category/CategoryList.vue';
+import ProductList from '@/modules/catalog/components/Product/ProductList.vue';
 
 export default Vue.extend({
   name: 'Catalog',

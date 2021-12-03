@@ -8,7 +8,7 @@ interface ICatalogService {
 }
 
 class CatalogService implements ICatalogService {
-  private API_URL = 'https://localhost:5001';
+  private API_URL = 'http://192.168.1.108:5002';
 
   public getCategories(): Promise<Category[]> {
     return fetch(`${this.API_URL}/api/v1/Category`).then((response) => {

@@ -5,7 +5,7 @@ function Protect(target: any): void {
 
 @Protect
 export default abstract class HelperService {
-  private static STATIC_GOOD_URL = 'http://127.0.0.1:9000';
+  private static STATIC_GOOD_URL = 'http://192.168.1.108:9000';
 
   public static makeUrl(relativeUrl: string): string {
     return `${this.STATIC_GOOD_URL}${

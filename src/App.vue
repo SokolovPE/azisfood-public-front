@@ -3,7 +3,10 @@
     <navbar />
     <v-main class="main">
       <category-list />
-      <v-container class="main-container">
+      <v-container
+        class="main-container"
+        :class="[{ 'main-container-xs': $vuetify.breakpoint.xsOnly }]"
+      >
         <router-view />
       </v-container>
       <bottom-nav v-if="$vuetify.breakpoint.xsOnly" />
@@ -48,6 +51,10 @@ export default Vue.extend({
 
 .main-container {
   margin-top: 64px;
+}
+
+.main-container-xs {
+  padding-bottom: 56px;
 }
 
 .content {

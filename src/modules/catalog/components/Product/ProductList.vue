@@ -1,8 +1,5 @@
 <template>
-  <v-container
-    class="d-flex fill-height pa-0"
-    :class="{ 'justify-center': $vuetify.breakpoint.xsOnly }"
-  >
+  <v-container class="d-flex fill-height pa-0 justify-center">
     <template v-if="products.length > 0">
       <product v-for="product in products" :key="product.id" :item="product" />
     </template>

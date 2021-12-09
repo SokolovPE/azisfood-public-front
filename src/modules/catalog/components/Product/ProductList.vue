@@ -1,5 +1,8 @@
 <template>
-  <v-container class="d-flex fill-height pa-0 justify-center">
+  <v-container
+    class="d-flex fill-height pa-0 justify-center"
+    :class="[{ 'container-small': this.$vuetify.breakpoint.sm }]"
+  >
     <template v-if="products.length > 0">
       <product v-for="product in products" :key="product.id" :item="product" />
     </template>
@@ -47,6 +50,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.container-small {
+  width: 70%;
+}
+
 .products-empty {
   .d-flex {
     width: 100%;

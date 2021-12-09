@@ -12,18 +12,25 @@
     </div>
 
     <v-spacer></v-spacer>
-      <template v-if="$vuetify.breakpoint.smAndUp">
+    <template v-if="$vuetify.breakpoint.smAndUp">
       <v-btn class="nav-btn" text to="/menu" color="white">Menu</v-btn>
       <v-btn class="nav-btn" text to="/offers" color="white">Offers</v-btn>
       <v-btn class="nav-btn" text to="/royals" color="white">Azis Royals</v-btn>
-      <v-btn class="nav-btn" text to="/restaurants" color="white">We on map</v-btn>
+      <v-btn
+        class="nav-btn"
+        text
+        to="/restaurants"
+        color="white"
+        v-if="this.$vuetify.breakpoint.mdAndUp"
+        >We on map
+      </v-btn>
       <v-btn class="nav-btn" text to="/about" color="white">About</v-btn>
     </template>
     <v-spacer></v-spacer>
-<!--    <v-btn class="func-btn" color="white" text>-->
-<!--      Login-->
-<!--      <v-icon>mdi-account</v-icon>-->
-<!--    </v-btn>-->
+    <!--    <v-btn class="func-btn" color="white" text>-->
+    <!--      Login-->
+    <!--      <v-icon>mdi-account</v-icon>-->
+    <!--    </v-btn>-->
     <v-badge
       :value="getCartStatus.visible"
       :content="getCartStatus.count"

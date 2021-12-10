@@ -2,7 +2,6 @@
   <v-app>
     <navbar />
     <v-main class="main">
-      <category-list />
       <v-container
         class="main-container"
         :class="[{ 'main-container-xs': $vuetify.breakpoint.xsOnly }]"
@@ -18,14 +17,12 @@
 import Vue from 'vue';
 
 import Navbar from '@/modules/layout/components/Navbar.vue';
-import CategoryList from '@/modules/catalog/components/Category/CategoryList.vue';
 import BottomNav from '@/modules/layout/components/BottomNav.vue';
 
 export default Vue.extend({
   name: 'App',
   components: {
     Navbar,
-    CategoryList,
     BottomNav,
   },
 

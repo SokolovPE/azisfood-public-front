@@ -2,7 +2,7 @@
   <v-card height="145" class="mx-2 my-2 w-100" v-if="this.$vuetify.breakpoint.smAndDown">
     <div class="d-flex flex-no-wrap fill-height">
       <v-avatar class="mx-3" size="125" tile>
-        <v-img :src="fullUrl()"></v-img>
+        <v-img :src="item.fullUrl"></v-img>
       </v-avatar>
       <div class="w-100">
         <v-card-title class="text-h6 product-title pr-2 pt-2" v-text="item.title"></v-card-title>
@@ -19,7 +19,7 @@
     </div>
   </v-card>
   <v-card class="mx-2 my-2" v-else>
-    <v-img :src="fullUrl()" height="250" width="250">
+    <v-img :src="item.fullUrl" height="250" width="250" @dblclick="$emit('dblclick', $event)">
       <template v-slot:placeholder>
         <v-sheet class="fill-height" color="grey lighten-4">
           <v-skeleton-loader class="fill-height" type="image" />
@@ -45,7 +45,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import Product from '@/modules/catalog/models/Product';
-import HelperService from '@/modules/common/services/Helper.service';
 
 export default Vue.extend({
   name: 'ProductItem',
@@ -53,12 +52,6 @@ export default Vue.extend({
     item: {
       type: Object as () => Product,
       required: true,
-    },
-  },
-  methods: {
-    fullUrl(): string {
-      const partUrl = this.item.imageUrl || '/public/goods/placeholder.png';
-      return HelperService.makeUrl(partUrl);
     },
   },
 });

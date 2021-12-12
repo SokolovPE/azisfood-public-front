@@ -1,5 +1,6 @@
 import NutritionFact from '@/modules/catalog/models/NutritionFact';
 import IngredientUsage from '@/modules/catalog/models/IngredientUsage';
+import HelperService from '@/modules/common/services/Helper.service';
 
 export default class Product {
   id: string;
@@ -21,6 +22,10 @@ export default class Product {
   ingredients: IngredientUsage[];
 
   optionId: string[];
+
+  public get fullUrl(): string {
+    return HelperService.makeUrl(this.imageUrl || '/public/goods/placeholder.png');
+  }
 
   constructor(
     id = '',

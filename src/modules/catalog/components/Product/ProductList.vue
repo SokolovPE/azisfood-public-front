@@ -4,7 +4,12 @@
     :class="[{ 'container-small': this.$vuetify.breakpoint.sm }]"
   >
     <template v-if="products.length > 0">
-      <product v-for="product in products" :key="product.id" :item="product" />
+      <product
+        v-for="product in products"
+        :key="product.id"
+        :item="product"
+        @dblclick.stop="selectProduct(product)"
+      />
     </template>
     <v-container class="d-flex justify-center fill-height" fluid v-else>
       <v-row class="products-empty">
@@ -14,13 +19,19 @@
         <h2 class="pt-4 products-empty-message">Something awesome will arrive soon!</h2>
       </v-row>
     </v-container>
+    <v-dialog v-model="displayInfo" v-if="displayInfo">
+      <product-details :item="selectedProduct" />
+    </v-dialog>
   </v-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import ProductItem from '@/modules/catalog/components/Product/ProductItem.vue';
 import Product from '@/modules/catalog/models/Product';
+
+import ProductItem from '@/modules/catalog/components/Product/ProductItem.vue';
+import ProductDetails from '@/modules/catalog/components/Product/ProductDetails.vue';
+
 import CatalogService from '@/modules/catalog/services/Catalog.service';
 import HelperService from '@/modules/common/services/Helper.service';
 
@@ -28,6 +39,7 @@ export default Vue.extend({
   name: 'ProductList',
   components: {
     product: ProductItem,
+    ProductDetails,
   },
   props: {
     categoryId: {
@@ -38,8 +50,16 @@ export default Vue.extend({
   data() {
     return {
       products: [] as Product[],
+      selectedProduct: new Product(),
+      displayInfo: false,
       notFoundPicUrl: HelperService.makeUrl('/public/messages/404_goods.png'),
     };
+  },
+  methods: {
+    selectProduct(payload: Product) {
+      this.selectedProduct = payload;
+      this.displayInfo = true;
+    },
   },
   watch: {
     async categoryId(newValue) {

@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+import { plainToInstance } from 'class-transformer';
 import Category from '@/modules/catalog/models/Category';
 import Product from '@/modules/catalog/models/Product';
 
@@ -8,19 +10,17 @@ interface ICatalogService {
 }
 
 class CatalogService implements ICatalogService {
-  private API_URL = 'http://192.168.1.108:5002';
-
   public getCategories(): Promise<Category[]> {
-    return fetch(`${this.API_URL}/api/v1/Category`).then((response) => {
+    return fetch(`${process.env.VUE_APP_API_URL}/api/v1/Category`).then((response) => {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      return response.json().then((data) => data as Category[]);
+      return response.json().then((data) => plainToInstance(Category, data));
     });
   }
 
   public getProducts(categoryId = ''): Promise<Product[]> {
-    let url = `${this.API_URL}/api/v1/Product`;
+    let url = `${process.env.VUE_APP_API_URL}/api/v1/Product`;
     if (categoryId !== undefined && categoryId !== '') {
       url += `/Category/${categoryId}`;
     }
@@ -29,7 +29,7 @@ class CatalogService implements ICatalogService {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      return response.json().then((data) => data as Product[]);
+      return response.json().then((data) => plainToInstance(Product, data));
     });
   }
 }

@@ -19,8 +19,8 @@
         <h2 class="pt-4 products-empty-message">Something awesome will arrive soon!</h2>
       </v-row>
     </v-container>
-    <v-dialog v-model="displayInfo" v-if="displayInfo">
-      <product-details :item="selectedProduct" />
+    <v-dialog v-model="displayInfo" v-if="displayInfo" class="mx-auto" max-width="700px">
+      <product-details :itemId="selectedProduct.id" />
     </v-dialog>
   </v-container>
 </template>

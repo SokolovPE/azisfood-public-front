@@ -30,7 +30,9 @@ class CatalogService implements ICatalogService {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      return response.json().then((data) => plainToInstance(Category, data));
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return response.json().then((data) => plainToInstance(Category, data) as Category[]);
     });
   }
 
@@ -45,7 +47,9 @@ class CatalogService implements ICatalogService {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      return response.json().then((data) => plainToInstance(Product, data));
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return response.json().then((data) => plainToInstance(Product, data) as Product[]);
     });
   }
 
@@ -59,7 +63,7 @@ class CatalogService implements ICatalogService {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      return response.json().then((data) => plainToInstance(Product, data as Product));
+      return response.json().then((data) => plainToInstance(Product, data) as Product);
     });
   }
 }

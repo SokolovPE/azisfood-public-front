@@ -1,0 +1,335 @@
+"""
+The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
+"""
+directive @defer(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this defer directive. This label is intended to give client applications a way to identify to which fragment a deferred result belongs to.
+  """
+  label: String
+
+  """
+  Deferred when true.
+  """
+  if: Boolean
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""
+The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such as asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`.
+"""
+directive @stream(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this stream directive. This label is intended to give client applications a way to identify to which fragment a streamed result belongs to.
+  """
+  label: String
+
+  """
+  The initial elements that shall be send down to the consumer.
+  """
+  initialCount: Int! = 0
+
+  """
+  Streamed when true.
+  """
+  if: Boolean
+) on FIELD
+
+"""
+Represents products in catalog
+"""
+type Product {
+  """
+  List of categories assigned to product
+  """
+  categoryId: [Category]
+
+  """
+  List of options assigned to product
+  """
+  optionId: [Option]
+  code: String
+  title: String
+  description: String
+  imageUrl: String
+  price: Decimal!
+  nutritionFact: NutritionFact
+  servingSize: Float!
+  ingredients: [IngredientUsage]
+  id: UUID!
+}
+
+"""
+GraphQL demo query
+"""
+type Query {
+  """
+  Get product by id
+  """
+  singleProduct(productId: UUID!): Product
+
+  """
+  Get list of products
+  """
+  product(where: ProductFilterInput, order: [ProductSortInput!]): [Product]
+
+  """
+  Get list of categories
+  """
+  category(where: CategoryFilterInput, order: [CategorySortInput!]): [Category]
+
+  """
+  Get list of ingredients
+  """
+  ingredient(
+    where: IngredientFilterInput
+    order: [IngredientSortInput!]
+  ): [Ingredient]
+
+  """
+  Get list of options
+  """
+  option(where: OptionFilterInput, order: [OptionSortInput!]): [Option]
+}
+
+type Category {
+  title: String
+  subCategories: [UUID!]
+  order: Int!
+  id: UUID!
+}
+
+type Option {
+  title: String
+  imageUrl: String
+  price: Decimal!
+  id: UUID!
+}
+
+"""
+The built-in `Decimal` scalar type.
+"""
+scalar Decimal
+
+type NutritionFact {
+  energy: Float!
+  calories: Float!
+  totalFat: Float!
+  carbohydrates: Float!
+  proteins: Float!
+  totalSugar: Float!
+  id: UUID!
+}
+
+type IngredientUsage {
+  ingredientId: UUID!
+  amount: Decimal!
+  toggleable: Boolean!
+}
+
+scalar UUID
+
+input ProductFilterInput {
+  and: [ProductFilterInput!]
+  or: [ProductFilterInput!]
+  code: StringOperationFilterInput
+  title: StringOperationFilterInput
+  description: StringOperationFilterInput
+  imageUrl: StringOperationFilterInput
+  price: ComparableDecimalOperationFilterInput
+  categoryId: ListComparableGuidOperationFilterInput
+  nutritionFact: NutritionFactFilterInput
+  servingSize: ComparableDoubleOperationFilterInput
+  ingredients: ListFilterInputTypeOfIngredientUsageFilterInput
+  optionId: ListComparableGuidOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ProductSortInput {
+  code: SortEnumType
+  title: SortEnumType
+  description: SortEnumType
+  imageUrl: SortEnumType
+  price: SortEnumType
+  nutritionFact: NutritionFactSortInput
+  servingSize: SortEnumType
+  id: SortEnumType
+}
+
+input CategoryFilterInput {
+  and: [CategoryFilterInput!]
+  or: [CategoryFilterInput!]
+  title: StringOperationFilterInput
+  subCategories: ListComparableGuidOperationFilterInput
+  order: ComparableInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input CategorySortInput {
+  title: SortEnumType
+  order: SortEnumType
+  id: SortEnumType
+}
+
+input IngredientFilterInput {
+  and: [IngredientFilterInput!]
+  or: [IngredientFilterInput!]
+  title: StringOperationFilterInput
+  measureUnitId: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input IngredientSortInput {
+  title: SortEnumType
+  measureUnitId: SortEnumType
+  id: SortEnumType
+}
+
+input OptionFilterInput {
+  and: [OptionFilterInput!]
+  or: [OptionFilterInput!]
+  title: StringOperationFilterInput
+  imageUrl: StringOperationFilterInput
+  price: ComparableDecimalOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input OptionSortInput {
+  title: SortEnumType
+  imageUrl: SortEnumType
+  price: SortEnumType
+  id: SortEnumType
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input ComparableDecimalOperationFilterInput {
+  eq: Decimal
+  neq: Decimal
+  in: [Decimal!]
+  nin: [Decimal!]
+  gt: Decimal
+  ngt: Decimal
+  gte: Decimal
+  ngte: Decimal
+  lt: Decimal
+  nlt: Decimal
+  lte: Decimal
+  nlte: Decimal
+}
+
+input ListComparableGuidOperationFilterInput {
+  all: ComparableGuidOperationFilterInput
+  none: ComparableGuidOperationFilterInput
+  some: ComparableGuidOperationFilterInput
+  any: Boolean
+}
+
+input NutritionFactFilterInput {
+  and: [NutritionFactFilterInput!]
+  or: [NutritionFactFilterInput!]
+  energy: ComparableDoubleOperationFilterInput
+  calories: ComparableDoubleOperationFilterInput
+  totalFat: ComparableDoubleOperationFilterInput
+  carbohydrates: ComparableDoubleOperationFilterInput
+  proteins: ComparableDoubleOperationFilterInput
+  totalSugar: ComparableDoubleOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ComparableDoubleOperationFilterInput {
+  eq: Float
+  neq: Float
+  in: [Float!]
+  nin: [Float!]
+  gt: Float
+  ngt: Float
+  gte: Float
+  ngte: Float
+  lt: Float
+  nlt: Float
+  lte: Float
+  nlte: Float
+}
+
+input ListFilterInputTypeOfIngredientUsageFilterInput {
+  all: IngredientUsageFilterInput
+  none: IngredientUsageFilterInput
+  some: IngredientUsageFilterInput
+  any: Boolean
+}
+
+input ComparableGuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID!]
+  nin: [UUID!]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input NutritionFactSortInput {
+  energy: SortEnumType
+  calories: SortEnumType
+  totalFat: SortEnumType
+  carbohydrates: SortEnumType
+  proteins: SortEnumType
+  totalSugar: SortEnumType
+  id: SortEnumType
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input IngredientUsageFilterInput {
+  and: [IngredientUsageFilterInput!]
+  or: [IngredientUsageFilterInput!]
+  ingredientId: ComparableGuidOperationFilterInput
+  amount: ComparableDecimalOperationFilterInput
+  toggleable: BooleanOperationFilterInput
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+type Ingredient {
+  title: String
+  measureUnitId: String
+  id: UUID!
+}

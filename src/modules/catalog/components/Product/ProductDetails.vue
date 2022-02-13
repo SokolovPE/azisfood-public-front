@@ -20,7 +20,7 @@
         <v-container class="px-0">
           <v-row class="mx-auto">
             <option-item
-              :item="makeFakeOption(option)"
+              :item="option"
               v-for="option in product.optionId"
               :key="option"
             />
@@ -38,9 +38,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Product from '@/modules/catalog/models/Product';
+import { plainToInstance } from 'class-transformer';
+import ProductQL from '@/modules/catalog/models/ProductQL';
 import Option from '@/modules/catalog/models/Option';
-import CatalogService from '@/modules/catalog/services/Catalog.service';
+import { ProductDetailsQuery } from '@/modules/catalog/graphql/Queries.graphql';
 
 import OptionItem from '@/modules/catalog/components/Product/OptionItem.vue';
 
@@ -57,7 +58,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      product: {} as Product,
+      product: {} as ProductQL,
       loading: true,
     };
   },
@@ -66,11 +67,16 @@ export default Vue.extend({
       return new Option(id);
     },
   },
-  mounted() {
-    // Retrieve product information from server
-    CatalogService.getProduct(this.itemId).then((data) => {
-      this.product = data;
-    });
+  apollo: {
+    product: {
+      query: ProductDetailsQuery,
+      variables() {
+        return {
+          productId: this.itemId,
+        };
+      },
+      update: (data) => plainToInstance(ProductQL, data.singleProduct),
+    },
   },
 });
 </script>

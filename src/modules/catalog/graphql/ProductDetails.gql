@@ -1,0 +1,6 @@
+query ($productId: UUID!) {
+    singleProduct(productId: $productId) {
+        id,
+        title
+    }
+}
